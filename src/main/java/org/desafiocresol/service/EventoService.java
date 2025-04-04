@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.desafiocresol.dto.EventoDTO;
-import org.desafiocresol.dto.InstituicaoDTO;
 import org.desafiocresol.entity.EventoEntity;
 import org.desafiocresol.entity.InstituicaoEntity;
 import org.desafiocresol.exceptions.AppException;

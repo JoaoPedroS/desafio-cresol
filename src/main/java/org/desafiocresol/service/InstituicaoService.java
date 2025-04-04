@@ -2,9 +2,10 @@ package org.desafiocresol.service;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Response;
 import org.desafiocresol.dto.InstituicaoDTO;
 import org.desafiocresol.entity.InstituicaoEntity;
-import org.desafiocresol.exceptions.NotFoundException;
+import org.desafiocresol.exceptions.AppException;
 import org.desafiocresol.repository.InstituicaoRepository;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class InstituicaoService {
 
     public InstituicaoEntity findById(Integer id){
         return (InstituicaoEntity) repository.findByIdOptional(id.longValue())
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new AppException("Instituição não encontrada", Response.Status.NOT_FOUND));
     }
 
     public InstituicaoEntity update(Integer id, InstituicaoDTO dto) {

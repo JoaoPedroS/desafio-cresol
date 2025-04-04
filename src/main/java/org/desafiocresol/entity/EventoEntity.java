@@ -1,5 +1,6 @@
 package org.desafiocresol.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -29,8 +30,9 @@ public class EventoEntity {
     @Column(name = "data_final", nullable = false)
     private LocalDateTime dataFinal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_instituicao", nullable = false)
+    @JsonIgnore
     private InstituicaoEntity instituicao;
 
     @Column(name = "ativo", nullable = false)

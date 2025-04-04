@@ -31,6 +31,5 @@ public class InstituicaoEntity {
 
     @OneToMany(mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
-    @JsonIgnore
     private Collection<EventoEntity> eventos = new ArrayList<>();
 }

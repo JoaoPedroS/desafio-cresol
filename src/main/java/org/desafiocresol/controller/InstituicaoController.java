@@ -6,6 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.desafiocresol.dto.InstituicaoDTO;
+import org.desafiocresol.entity.InstituicaoEntity;
 import org.desafiocresol.service.InstituicaoService;
 
 @Path("/instituicao")
@@ -42,7 +43,8 @@ public class InstituicaoController {
     @Path("/{id}")
     @Transactional
     public Response update(@PathParam("id") Integer id, InstituicaoDTO dto) {
-        return Response.ok(service.update(id, dto)).build();
+        InstituicaoEntity instituicao = service.update(id, dto);
+        return Response.ok(InstituicaoDTO.from(instituicao)).build();
     }
 
     @DELETE

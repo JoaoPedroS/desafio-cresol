@@ -24,6 +24,13 @@ public class InstituicaoDTO {
                 .build();
     }
 
+    public static InstituicaoDTO from(final InstituicaoEntity entity) {
+        return InstituicaoDTO.builder()
+                .nome(entity.getNome())
+                .tipo(entity.getTipo())
+                .build();
+    }
+
     public static InstituicaoEntity buildFrom(final InstituicaoDTO dto, final InstituicaoEntity entity) {
          entity.setNome(dto.getNome());
          entity.setTipo(dto.getTipo());

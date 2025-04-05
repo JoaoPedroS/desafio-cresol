@@ -10,7 +10,7 @@ existe algum evento para encerrar e caso exista o mesmo é encerrado.
 ### Cadastro de Instituições
 
 Para o cadastro de instituições é necessário passar os dados `nome` e `tipo` 
-sendo `nome` um texto comum(string) e `tipo` um enum com três opções (`CONFEDERACAO, SINGULAR, COOPERATIVA E CENTRAL`)
+sendo `nome` um texto comum(string) e `tipo` um enum com quatro opções (`CONFEDERACAO, SINGULAR, COOPERATIVA E CENTRAL`)
 
 ### Cadatro de Eventos
 Para o cadastro de eventos é necessário passar os dados `nome`, `dataInicial`, `dataFinal` e `idInstituicao`

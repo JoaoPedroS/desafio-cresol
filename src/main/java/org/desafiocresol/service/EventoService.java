@@ -11,6 +11,7 @@ import org.desafiocresol.exceptions.AppException;
 import org.desafiocresol.record.Page;
 import org.desafiocresol.repository.EventoRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -25,7 +26,12 @@ public class EventoService {
     public Evento create( EventoDTO dto) {
         Instituicao instituicao = instituicaoService.findById(dto.getIdInstituicao());
         Evento evento = EventoDTO.toEntity(dto, instituicao);
+
         validaDatas(evento);
+        if (isEventoInativo(evento)) {
+            evento.setAtivo(false);
+        }
+
         repository.persist(evento);
         return evento;
     }
@@ -41,7 +47,11 @@ public class EventoService {
 
     public Evento update(Integer id, EventoDTO dto) {
         Evento updatedEvento = getUpdatedEntity(id, dto);
+
         validaDatas(updatedEvento);
+        if (isEventoInativo(updatedEvento)) {
+            updatedEvento.setAtivo(false);
+        }
 
         repository.persist(updatedEvento);
         return updatedEvento;
@@ -80,5 +90,9 @@ public class EventoService {
                     Response.Status.BAD_REQUEST
             );
         }
+    }
+
+    private boolean isEventoInativo(Evento evento) {
+        return evento.getDataInicial().isBefore(LocalDateTime.now());
     }
 }

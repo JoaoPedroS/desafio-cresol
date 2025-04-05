@@ -1,10 +1,9 @@
 package org.desafiocresol.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.desafiocresol.enums.ETipoInstituicao;
+import org.desafiocresol.enums.TipoInstituicao;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +15,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class InstituicaoEntity {
+public class Instituicao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -27,9 +26,9 @@ public class InstituicaoEntity {
 
     @Column(name = "tipo", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ETipoInstituicao tipo;
+    private TipoInstituicao tipo;
 
     @OneToMany(mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
-    private Collection<EventoEntity> eventos = new ArrayList<>();
+    private Collection<Evento> eventos = new ArrayList<>();
 }

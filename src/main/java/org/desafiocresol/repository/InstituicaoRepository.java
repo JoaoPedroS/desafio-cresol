@@ -1,9 +1,23 @@
 package org.desafiocresol.repository;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.RequestScoped;
-import org.desafiocresol.entity.InstituicaoEntity;
+import org.desafiocresol.dto.InstituicaoDTO;
+import org.desafiocresol.entity.Instituicao;
+import org.desafiocresol.record.Page;
+
+import java.util.List;
 
 @RequestScoped
-public class InstituicaoRepository implements PanacheRepository<InstituicaoEntity> {
+public class InstituicaoRepository implements PanacheRepository<Instituicao> {
+
+    public Page<InstituicaoDTO> listPaginated(Integer page, Integer pageSize) {
+        PanacheQuery<Instituicao> query = findAll().page(page, pageSize);
+        List<InstituicaoDTO> dados = query.list()
+                .stream().map(InstituicaoDTO::from)
+                .toList();
+
+        return new Page<>(dados, query.count(), query.hasNextPage());
+    }
 }

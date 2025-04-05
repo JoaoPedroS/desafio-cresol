@@ -2,8 +2,8 @@ package org.desafiocresol.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.desafiocresol.entity.EventoEntity;
-import org.desafiocresol.entity.InstituicaoEntity;
+import org.desafiocresol.entity.Evento;
+import org.desafiocresol.entity.Instituicao;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +14,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class EventoDTO {
 
+    private Integer id;
+
     @NotBlank(message = "O nome do evento deve ser informado")
     private String nome;
 
     @NotBlank(message = "A data inicial do evento deve ser informada")
     private LocalDateTime dataInicial;
 
-    @NotBlank(message = "A data final do evento deve ser informada")
+    @NotBlank(message = "A data  do evento deve ser informada")
     private LocalDateTime dataFinal;
 
     @NotBlank(message = "A instituição deve ser informada")
@@ -29,8 +31,8 @@ public class EventoDTO {
     @Builder.Default
     private boolean ativo = true;
 
-    public static EventoEntity toEntity(final EventoDTO dto, final InstituicaoEntity instituicao) {
-        return EventoEntity.builder()
+    public static Evento toEntity( EventoDTO dto,  Instituicao instituicao) {
+        return Evento.builder()
                 .instituicao(instituicao)
                 .nome(dto.getNome())
                 .dataInicial(dto.getDataInicial())
@@ -39,8 +41,9 @@ public class EventoDTO {
                 .build();
     }
 
-    public static EventoDTO from(final EventoEntity entity) {
+    public static EventoDTO from( Evento entity) {
         return EventoDTO.builder()
+                .id(entity.getId())
                 .idInstituicao(entity.getInstituicao().getId())
                 .nome(entity.getNome())
                 .dataInicial(entity.getDataInicial())
@@ -49,7 +52,7 @@ public class EventoDTO {
                 .build();
     }
 
-    public static EventoEntity buildFrom(final EventoDTO dto, final EventoEntity entity, final InstituicaoEntity instituicao) {
+    public static Evento buildFrom( EventoDTO dto,  Evento entity,  Instituicao instituicao) {
         entity.setNome(dto.getNome());
         entity.setDataInicial(dto.getDataInicial());
         entity.setDataFinal(dto.getDataFinal());

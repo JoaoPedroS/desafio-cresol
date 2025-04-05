@@ -4,11 +4,11 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.desafiocresol.dto.InstituicaoDTO;
-import org.desafiocresol.entity.InstituicaoEntity;
+import org.desafiocresol.entity.Instituicao;
 import org.desafiocresol.exceptions.AppException;
+import org.desafiocresol.record.Page;
 import org.desafiocresol.repository.InstituicaoRepository;
 
-import java.util.List;
 
 @RequestScoped
 public class InstituicaoService {
@@ -16,31 +16,31 @@ public class InstituicaoService {
     @Inject
     InstituicaoRepository repository;
 
-    public InstituicaoEntity create(final InstituicaoDTO dto) {
-        InstituicaoEntity instituicao = InstituicaoDTO.toEntity(dto);
+    public Instituicao create( InstituicaoDTO dto) {
+        Instituicao instituicao = InstituicaoDTO.toEntity(dto);
         repository.persist(instituicao);
         return instituicao;
     }
 
-    public List<InstituicaoEntity> getAll(Integer page, Integer pageSize) {
-        return repository.findAll().page(page, pageSize).list();
+    public Page<InstituicaoDTO> getAll(Integer page, Integer pageSize) {
+        return repository.listPaginated(page, pageSize);
     }
 
-    public InstituicaoEntity findById(Integer id){
-        return (InstituicaoEntity) repository.findByIdOptional(id.longValue())
+    public Instituicao findById(Integer id){
+        return repository.findByIdOptional(id.longValue())
                 .orElseThrow(() -> new AppException("Instituição não encontrada", Response.Status.NOT_FOUND));
     }
 
-    public InstituicaoEntity update(Integer id, InstituicaoDTO dto) {
-        final InstituicaoEntity instituicao = findById(id);
-        final InstituicaoEntity updatedInstituicao = InstituicaoDTO.buildFrom(dto, instituicao);
+    public Instituicao update(Integer id, InstituicaoDTO dto) {
+         Instituicao instituicao = findById(id);
+         Instituicao updatedInstituicao = InstituicaoDTO.buildFrom(dto, instituicao);
 
         repository.persist(updatedInstituicao);
         return updatedInstituicao;
     }
 
     public void delete(Integer id) {
-        final InstituicaoEntity instituicao = findById(id);
+        findById(id);
         repository.deleteById(id.longValue());
     }
 }

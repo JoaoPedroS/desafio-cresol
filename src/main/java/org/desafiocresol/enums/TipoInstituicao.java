@@ -1,6 +1,6 @@
 package org.desafiocresol.enums;
 
-public enum ETipoInstituicao {
+public enum TipoInstituicao {
     CONFEDERACAO,
     SINGULAR,
     CENTRAL,

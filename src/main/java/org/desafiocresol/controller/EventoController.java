@@ -9,7 +9,7 @@ import org.desafiocresol.dto.EventoDTO;
 import org.desafiocresol.entity.Evento;
 import org.desafiocresol.service.EventoService;
 
-@Path("/eventos")
+@Path("/evento")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EventoController {
@@ -22,6 +22,15 @@ public class EventoController {
     public Response createEvento(EventoDTO dto) {
          Evento evento = service.create(dto);
         return Response.ok(EventoDTO.from(evento)).build();
+    }
+
+    @GET
+    public Response getAll(
+            @DefaultValue("0") @QueryParam("page") Integer page,
+            @DefaultValue("10") @QueryParam("pageSize") Integer pageSize
+    )
+    {
+        return Response.ok(service.getAll(page, pageSize)).build();
     }
 
     @GET

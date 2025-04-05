@@ -8,6 +8,7 @@ import org.desafiocresol.dto.EventoDTO;
 import org.desafiocresol.entity.Evento;
 import org.desafiocresol.entity.Instituicao;
 import org.desafiocresol.exceptions.AppException;
+import org.desafiocresol.record.Page;
 import org.desafiocresol.repository.EventoRepository;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class EventoService {
         return evento;
     }
 
-    public List<Evento> getAll(Integer page, Integer pageSize) {
-        return repository.findAll().page(page, pageSize).list();
+    public Page<EventoDTO> getAll(Integer page, Integer pageSize) {
+        return repository.listPaginated(page, pageSize);
     }
 
     public Evento findById(Integer id){

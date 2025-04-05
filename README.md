@@ -1,79 +1,36 @@
-# desafio-cresol
+# desafio-cresol JAVA
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Regras de fucionamento
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+O projeto possui duas entidades, Instituicoes e Eventos, quando cadastrada uma instituição então 
+é possível cadastrar um evento referenciando a qual instituição o mesmo pertence, o mesmo possui a configuração de um cronjob para 
+realizar o encerramento de eventos de maneira automatizada, sendo executado a cada 30 segundos, a cada execução é verificado se 
+existe algum evento para encerrar e caso exista o mesmo é encerrado.
 
-## Running the application in dev mode
+### Cadastro de Instituições
 
-You can run your application in dev mode that enables live coding using:
+Para o cadastro de instituições é necessário passar os dados `nome` e `tipo` 
+sendo `nome` um texto comum(string) e `tipo` um enum com três opções (`CONFEDERACAO, SINGULAR, COOPERATIVA E CENTRAL`)
 
+### Cadatro de Eventos
+Para o cadastro de eventos é necessário passar os dados `nome`, `dataInicial`, `dataFinal` e `idInstituicao`
+sendo `nome` um texto comum(string), `dataInicial` e `dataFinal` LocalDateTime e `idInstituicao` um inteiro.
+
+
+## Para executar o projeto localmente
+
+### Caso tenha a CLI do quarkus instalada na maquina utilizar
+```shell script
+quarkus dev
+```
+
+### Caso contrário utilizar
 ```shell script
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## Tecnologias usadas no projeto
 
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/desafio-cresol-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- Scheduler ([guide](https://quarkus.io/guides/scheduler)): Schedule jobs and tasks
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+- Java 21.
+- Quarkus
+- PostgreSql

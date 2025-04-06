@@ -28,9 +28,6 @@ public class EventoService {
         Evento evento = EventoDTO.toEntity(dto, instituicao);
 
         validaDatas(evento);
-        if (isEventoInativo(evento)) {
-            evento.setAtivo(false);
-        }
 
         repository.persist(evento);
         return evento;
@@ -93,6 +90,6 @@ public class EventoService {
     }
 
     private boolean isEventoInativo(Evento evento) {
-        return evento.getDataInicial().isBefore(LocalDateTime.now());
+        return evento.getDataFinal().isBefore(LocalDateTime.now());
     }
 }
